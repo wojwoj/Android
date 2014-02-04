@@ -46,7 +46,16 @@ public class ActivityOne extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_one);
-		mCreate++;	
+		
+		if(savedInstanceState!=null){
+			mCreate = savedInstanceState.getInt("mCreate")+1;
+			mStart = savedInstanceState.getInt("mStart");
+			mResume = savedInstanceState.getInt("mResume");
+			mRestart = savedInstanceState.getInt("mRestart");
+		}else{
+			mCreate++;
+		}
+		
 		// Assign the appropriate TextViews to the TextView variables
 		// Hint: Access the TextView by calling Activity's findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
@@ -163,6 +172,11 @@ public class ActivityOne extends Activity {
 		// TODO:
 		// Save state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
+		
+		savedInstanceState.putInt("mCreate", mCreate);
+		savedInstanceState.putInt("mStart", mStart);
+		savedInstanceState.putInt("mResume", mResume);
+		savedInstanceState.putInt("mRestart", mRestart);
 
 	}
 

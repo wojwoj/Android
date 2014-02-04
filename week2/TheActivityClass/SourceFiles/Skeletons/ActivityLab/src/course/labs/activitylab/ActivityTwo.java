@@ -189,9 +189,6 @@ public class ActivityTwo extends Activity {
 		// Save counter state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
 
-
-
-
 	}
 
 	// Updates the displayed counters
