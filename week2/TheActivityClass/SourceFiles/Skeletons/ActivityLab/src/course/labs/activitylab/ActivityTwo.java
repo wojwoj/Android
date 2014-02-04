@@ -77,12 +77,12 @@ public class ActivityTwo extends Activity {
 		// Check for previously saved state
 		if (savedInstanceState != null) {
 
-			// TODO:
-			// Restore value of counters from saved state
-			// Only need 4 lines of code, one for every count variable
-
-
-
+			mCreate = savedInstanceState.getInt("mCreate")+1;
+			mStart = savedInstanceState.getInt("mStart");
+			mResume = savedInstanceState.getInt("mResume");
+			mRestart = savedInstanceState.getInt("mRestart");
+		}else{
+			mCreate++;
 		}
 
 		// TODO: Emit LogCat message
@@ -93,8 +93,6 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
 
-
-		mCreate++;
 		Log.i(CREATE_KEY, "onCreate");
 		displayCounts();
 
@@ -188,6 +186,11 @@ public class ActivityTwo extends Activity {
 		// TODO:
 		// Save counter state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
+		savedInstanceState.putInt("mCreate", mCreate);
+		savedInstanceState.putInt("mStart", mStart);
+		savedInstanceState.putInt("mResume", mResume);
+		savedInstanceState.putInt("mRestart", mRestart);
+
 
 	}
 
