@@ -93,7 +93,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
 
-		Log.i(CREATE_KEY, "onCreate");
+		Log.i(TAG,"Entered the onCreate method");
 		displayCounts();
 
 
@@ -105,7 +105,9 @@ public class ActivityTwo extends Activity {
 	public void onStart() {
 		super.onStart();
 
-		Log.i(START_KEY, "onStart");
+		
+		Log.i(TAG,"Entered the onStart method");
+		
 		//
 		// Update the appropriate count variable
 		// Update the user interface
@@ -120,7 +122,9 @@ public class ActivityTwo extends Activity {
 	public void onResume() {
 		super.onResume();
 
-		Log.i(RESUME_KEY, "onResume");
+		
+		Log.i(TAG,"Entered the onResume method");
+
 		// TODO: Emit LogCat message
 		mResume++;
 		displayCounts();
@@ -166,9 +170,7 @@ public class ActivityTwo extends Activity {
 		// Update the appropriate count variable
 		// Update the user interface
 		mRestart++;
-		Log.i(RESTART_KEY, "onRestart");
-
-
+		Log.i(TAG,"Entered the onRestart method");
 
 	}
 
