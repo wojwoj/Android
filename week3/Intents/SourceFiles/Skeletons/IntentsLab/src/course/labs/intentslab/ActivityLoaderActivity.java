@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,14 +21,15 @@ public class ActivityLoaderActivity extends Activity {
 	// For use with app chooser
 	static private final String CHOOSER_TEXT = "Load " + URL + " with:";
 
-	// TextView that displays user-entered text from ExplicitlyLoadedActivity runs
+	// TextView that displays user-entered text from ExplicitlyLoadedActivity
+	// runs
 	private TextView mUserTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loader_activity);
-		
+
 		// Get reference to the textView
 		mUserTextView = (TextView) findViewById(R.id.textView1);
 
@@ -38,9 +40,9 @@ public class ActivityLoaderActivity extends Activity {
 			// Call startExplicitActivation() when pressed
 			@Override
 			public void onClick(View v) {
-				
+
 				startExplicitActivation();
-			
+
 			}
 		});
 
@@ -51,51 +53,64 @@ public class ActivityLoaderActivity extends Activity {
 			// Call startImplicitActivation() when pressed
 			@Override
 			public void onClick(View v) {
-			
+
 				startImplicitActivation();
-			
+
 			}
 		});
 
 	}
 
-	
 	// Start the ExplicitlyLoadedActivity
-	
+
 	private void startExplicitActivation() {
 
-		Log.i(TAG,"Entered startExplicitActivation()");
-		
-		// TODO - Create a new intent to launch the ExplicitlyLoadedActivity class
-		
-		Intent expLoadAct = new Intent(getApplicationContext(),ExplicitlyLoadedActivity.class);
-		startActivityForResult(expLoadAct, GET_TEXT_REQUEST_CODE);
-		
-		// TODO - Start an Activity using that intent and the request code defined above
+		Log.i(TAG, "Entered startExplicitActivation()");
 
+		// TODO - Create a new intent to launch the ExplicitlyLoadedActivity
+		// class
+
+		Intent expLoadAct = new Intent(getApplicationContext(),
+				ExplicitlyLoadedActivity.class);
+		startActivityForResult(expLoadAct, GET_TEXT_REQUEST_CODE);
+
+		// TODO - Start an Activity using that intent and the request code
+		// defined above
 
 	}
 
 	// Start a Browser Activity to view a web page or its URL
-	
+
 	private void startImplicitActivation() {
 
 		Log.i(TAG, "Entered startImplicitActivation()");
 
-		// TODO - Create a base intent for viewing a URL 
-		// (HINT:  second parameter uses parse() from the Uri class)
-		
-		
-		// TODO - Create a chooser intent, for choosing which Activity
-		// will carry out the baseIntent. Store the Intent in the 
-		// chooserIntent variable below. HINT: using the Intent class' 
-		// createChooser())
-		
-		Intent chooserIntent = null;
+		// TODO - Create a base intent for viewing a URL
+		// (HINT: second parameter uses parse() from the Uri class)
+		Uri webpage = Uri.parse("http://www.android.com");
 
-		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
+		// TODO - Create a chooser intent, for choosing which Activity
+		// will carry out the baseIntent. Store the Intent in the
+		// chooserIntent variable below. HINT: using the Intent class'
+		// createChooser())
+
+		Intent base = new Intent(Intent.ACTION_VIEW, webpage);
+		Intent chooserIntent  = Intent.createChooser(base, "title");
+		
+		
+		// Create intent to show chooser"
+		
+
+		// Verify the intent will resolve to at least one activity
+		if (chooserIntent.resolveActivity(getPackageManager()) != null) {
+		    startActivity(chooserIntent);
+		    
+		}
+
+		Log.i(TAG, "Chooser Intent Action:" + chooserIntent.getAction());
 		// TODO - Start the chooser Activity, using the chooser intent
 		startActivity(chooserIntent);
+		Log.i(TAG, "Chooser Name:" + chooserIntent.getScheme());
 
 	}
 
@@ -104,20 +119,20 @@ public class ActivityLoaderActivity extends Activity {
 
 		Log.i(TAG, "Entered onActivityResult()");
 		if (requestCode == GET_TEXT_REQUEST_CODE) {
-	        // Make sure the request was successful
-	        if (resultCode == RESULT_OK) {
-	            // The user picked a contact.
-	            // The Intent's data Uri identifies which contact was selected.
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+				// The user picked a contact.
+				// The Intent's data Uri identifies which contact was selected.
+				Bundle b = data.getExtras();
 
-	            // Do something with the contact here (bigger example below)
-	        }
-	    }
+				mUserTextView.setText(b.get("text").toString());
+				// Do something with the contact here (bigger example below)
+			}
+		}
 
-		
 		// TODO - Process the result only if this method received both a
 		// RESULT_OK result code and a recognized request code
 		// If so, update the Textview showing the user-entered text.
-
 
 	}
 }
