@@ -1,9 +1,12 @@
 package course.labs.fragmentslab;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends Activity implements
 		FriendsFragment.SelectionListener {
@@ -26,7 +29,11 @@ public class MainActivity extends Activity implements
 			mFriendsFragment = new FriendsFragment();
 
 			//TODO 1 - add the FriendsFragment to the fragment_container
+			FragmentManager fm = getFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			ft.add(R.id.fragment_container, mFriendsFragment);
 			
+			ft.commit();
 			
 			
 
@@ -66,11 +73,15 @@ public class MainActivity extends Activity implements
 
 			//TODO 2 - replace the fragment_container with the FeedFragment
 			
-
-			
+			FragmentManager fm = getFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			ft.replace(R.id.fragment_container,mFeedFragment);
+			ft.addToBackStack(null);
+			ft.commit();
 
 			// execute transaction now
 			getFragmentManager().executePendingTransactions();
+			
 
 		}
 
